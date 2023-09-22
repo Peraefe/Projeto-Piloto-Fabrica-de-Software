@@ -4,7 +4,7 @@ OPCOES_CURSOS= (
     (2,u'Agronomia'),
     (3,u'Arquitetura e Urbanismo'),
     (4,u'Biologia'),
-    (5,u'Ciência da Comupatação'),
+    (5,u'Ciência da Computação'),
     (6,u'Ciências Biológicas'),
     (7,u'Ciências Contábeis'),
     (8,u'Ciências Econômicas'),

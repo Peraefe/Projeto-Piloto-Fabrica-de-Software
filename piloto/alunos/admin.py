@@ -3,4 +3,7 @@ from .models.base.Alunos import Aluno
 
 # Register your models here.
 
-admin.site.register(Aluno)
+class AlunoAdmin(admin.ModelAdmin):
+    list_display = ('nomeDoAluno', 'matricula', 'cpf', 'campus', 'curso', 'situacao', 'formaDeIngresso' )
+
+admin.site.register(Aluno, AlunoAdmin)
