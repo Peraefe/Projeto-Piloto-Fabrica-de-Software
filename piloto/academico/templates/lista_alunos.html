@@ -1,0 +1,7 @@
+{% block content%}
+    <ul>
+        {% for aluno in object_list %}
+        <li>{{aluno.nomeDoAluno}}: {{aluno.matricula}}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
