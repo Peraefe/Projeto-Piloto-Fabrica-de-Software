@@ -11,24 +11,17 @@ class Aluno(models.Model):
     nomeDoAluno = models.CharField('Nome do Aluno', max_length=100)
     cpf = models.CharField('CPF', max_length=11)
     dataNasc = models.DateField('Data de Nascimento')
-    foto = models.ImageField(upload_to=diretorio_imagens_aluno, blank=True, null=True) #adicionar upload_to
-    curso = models.SmallIntegerField('Curso',choices=OPCOES_CURSOS)
-    campus = models.SmallIntegerField('Câmpus',choices=OPCOES_CAMPUS)
+    foto = models.ImageField(upload_to=diretorio_imagens_aluno, blank=True, null=True)
+    campus = models.ForeignKey('campus.Campus', on_delete = models.SET_NULL, null = True)
+    curso = models.ForeignKey('cursos.Curso', on_delete = models.SET_NULL, null = True)
     situacao = models.SmallIntegerField('Situação',choices=OPCOES_SITUACAO)
     formaDeIngresso= models.SmallIntegerField('Forma de Ingresso',choices=OPCOES_INGRESSO)
     matricula = models.CharField('Matrícula', max_length=9, unique=True, editable=False)
 
-    class Meta:
-        verbose_name = "Aluno"
-        verbose_name_plural = "Alunos"
-        ordering = ['nomeDoAluno']
-
     def __str__(self):
         return '{0} - {1}'.format(
             self.nomeDoAluno,
-            self.matricula,
-            self.campus,
-            self.curso
+            self.matricula
         )
 
     def generate_matricula(self):
@@ -57,3 +50,8 @@ class Aluno(models.Model):
         if not self.matricula:
             self.matricula = self.generate_matricula()
         super().save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = "Aluno"
+        verbose_name_plural = "Alunos"
+        ordering = ['nomeDoAluno']
