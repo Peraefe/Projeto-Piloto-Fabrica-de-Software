@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+g3jk!1oik_(-rp+kft_hr^er-sh#9gk5n-qxss(a)5^aw01=h'
+SECRET_KEY = 'django-insecure-x*fv@725e7m1d6&9vvw29*32)2g$u^wq0y+xnv#f#oms*#jeqt'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,10 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_select2',
-    'alunos',
-    'campus',
-    'cursos',
+    'academico',
 ]
 
 MIDDLEWARE = [
@@ -125,5 +122,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'fotos')
