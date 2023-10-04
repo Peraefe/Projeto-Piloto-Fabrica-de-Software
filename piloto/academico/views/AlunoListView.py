@@ -3,4 +3,4 @@ from ..models.base.Alunos import Aluno
 
 class ListaAlunos(ListView):
     model = Aluno
-    template_name = 'lista_alunos.html'
+    template_name = 'academico/lista_alunos.html'
