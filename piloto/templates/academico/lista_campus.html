@@ -1,0 +1,24 @@
+{% extends "bases/base.html" %}
+
+{% block content%}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Cursos</th>
+                <th scope="col">Quantidade de Alunos</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for campus in object_list %}
+            <tr>
+                <th scope="row">{{campus.nome}}</th>
+                <td>Quantidade de Cursos</td>
+                <td>Quantidade de Alunos</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

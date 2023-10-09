@@ -1,0 +1,23 @@
+{% extends "bases/base.html" %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+
+    <form method="POST" enctype="multipart/form-data" class="row g-3 mx-5 my-2">
+
+        {% csrf_token %}
+
+        <label class="form-label">Nome do Curso</label>
+        {% render_field form.nome class="form-control" %}
+
+        <label class="form-label">Câmpus do Curso</label>
+        {% render_field form.campus class="form-control"%}
+
+        <div class="col-12">
+            <button type="submit" class="btn btn-warning">Cadastrar</button>
+        </div>
+
+    </form>
+
+{% endblock %}

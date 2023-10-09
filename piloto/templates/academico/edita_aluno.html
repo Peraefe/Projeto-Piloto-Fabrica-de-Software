@@ -1,0 +1,73 @@
+{% extends "bases/base.html" %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+
+<form method="POST" enctype="multipart/form-data" class="row g-3 mx-5 my-2">
+    {% csrf_token %}
+
+
+    <div class="col-md-12">
+    <label class="form-label">Nome Completo</label>
+    {% render_field form.nomeDoAluno class="form-control" %}
+    </div>
+    <div class="col-md-6">
+    <label class="form-label">CPF</label>
+    {% render_field form.cpf class="form-control" %}
+    </div>
+    <div class="col-6">
+    <label class="form-label">Data de Nascimento</label>
+    {% render_field form.dataNasc class="form-control" type="Date"%}
+    </div>
+    <div class="mb-3">
+    <label class="form-label">Foto do Aluno</label>
+    {% render_field form.foto class="form-control" %}
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">Câmpus</label>
+        <!-- <select class="form-select" name="{{ form.campus.name }}" id="inputSelectCampus" value="{{ form.campus.value }}">
+            <option selected></option>
+            {% for campus in form.campus.field.choices %}
+                <option value="{{ campus.1 }}">{{ campus.1 }}</option>
+            {% endfor %}
+        </select> -->
+        {% render_field form.campus class="form-select" id="inputSelectCampus" %}
+
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">Curso</label>
+        <!-- <select class="form-select" id="inputSelectCurso" name="{{ form.curso.name }}" value="{{ form.curso.value }}">
+            <option selected></option>
+            {% for curso in form.curso.field.choices %}
+                <option value="{{ curso.1.nome }}" data-campus="{{ curso.1.campus }}">{{ curso.1.nome }}</option>
+            {% endfor %}
+        </select> -->
+        {% render_field form.curso class="form-select" id="inputSelectCurso" %}
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">Situação do Aluno</label>
+        <!-- <select class="form-select" name="situacao">
+            <option selected=""></option>
+            {% for situacao in situacao%}
+                <option>{{situacao.1}}</option>
+            {% endfor %}
+        </select> -->
+        {% render_field form.situacao class="form-select"%}
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">Forma de Ingresso</label>
+        <!-- <select class="form-select" name="formaDeIngresso">
+            <option selected=""></option>
+            {% for ingresso in ingresso%}
+                <option>{{ingresso.1}}</option>
+            {% endfor %}
+        </select> -->
+        {% render_field form.formaDeIngresso class="form-select"%}
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-warning">Editar</button>
+    </div>
+</form>
+
+{% endblock %}

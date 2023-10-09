@@ -1,0 +1,27 @@
+{% extends "bases/base.html" %}
+
+{% block content%}
+
+    <a class="btn btn-warning my-2 col-6 d-md-block mx-auto" href="cadastrar/" role="button" >Adicionar Curso</a>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Câmpus</th>
+                <th scope="col">Quantidade de Alunos</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for curso in object_list %}
+            <tr>
+                <th scope="row">{{curso.nome}}</th>
+                <td>{{curso.campus}}</td>
+                <td>Quantidade de Alunos</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
