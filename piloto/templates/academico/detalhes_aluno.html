@@ -1,0 +1,53 @@
+{% extends "bases/base.html" %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">Nome Completo:</th>
+                <td>{{object.nomeDoAluno}}</td>
+            </tr>
+            <tr>
+                <th scope="row">CPF:</th>
+                <td>{{object.cpf}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Data de Nascimento:</th>
+                <td colspan="2">{{object.dataNasc}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Foto do Aluno:</th>
+                <td colspan="2"><img style="height: 100%; max-height: 200px" id="foto_preview" title="foto do aluno" class="overflow-hidden rounded" src="{{ object.foto.url }}" alt="foto do aluno"></td>
+            </tr>
+            <tr>
+                <th scope="row">Câmpus:</th>
+                <td colspan="2">{{object.campus}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Curso:</th>
+                <td colspan="2">{{object.curso}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Situação do Aluno:</th>
+                <td colspan="2">{{object.get_situacao_display}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Forma de Ingresso:</th>
+                <td colspan="2">{{object.get_formaDeIngresso_display}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="col-10 mx-2">
+        <a href="{% url 'edita_aluno' pk=aluno.pk %}" role="button"  class="btn btn-warning">Editar</a>
+    </div>
+
+{% endblock %}

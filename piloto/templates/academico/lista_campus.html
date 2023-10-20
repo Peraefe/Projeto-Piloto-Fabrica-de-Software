@@ -6,16 +6,16 @@
         <thead>
             <tr>
                 <th scope="col">Nome</th>
-                <th scope="col">Cursos</th>
-                <th scope="col">Quantidade de Alunos</th>
+                <th scope="col">Quantidade de Cursos no Câmpus</th>
+                <th scope="col">Quantidade de Alunos no Câmpus</th>
             </tr>
         </thead>
         <tbody>
             {% for campus in object_list %}
             <tr>
                 <th scope="row">{{campus.nome}}</th>
-                <td>Quantidade de Cursos</td>
-                <td>Quantidade de Alunos</td>
+                <td>{{campus.retornaCursosNoCampus}}</td>
+                <td >{{campus.retornaAlunosNoCampus}}</td>
             </tr>
             {% endfor %}
         </tbody>

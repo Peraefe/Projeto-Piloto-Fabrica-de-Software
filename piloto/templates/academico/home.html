@@ -12,10 +12,10 @@
                         <p class="card-text">Quantidade de Alunos por Situação</p>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Vinculados</li>
-                        <li class="list-group-item">Jubilados</li>
-                        <li class="list-group-item">Formados</li>
-                        <li class="list-group-item">Evadidos</li>
+                        <li class="list-group-item">Vinculados: {{alunos.retornaAlunosVinculados}}</li>
+                        <li class="list-group-item">Jubilados: {{alunos.retornaAlunosJubilados}}</li>
+                        <li class="list-group-item">Formados: {{alunos.retornaAlunosFormados}}</li>
+                        <li class="list-group-item">Evadidos: {{alunos.retornaAlunosEvadidos}}</li>
                     </ul>
                 </div>
             </div>
@@ -27,10 +27,9 @@
                     </div>
                     <!--Tornar isso dinâmico buscando informações no banco-->
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Câmpus 1</li>
-                        <li class="list-group-item">Câmpus 2</li>
-                        <li class="list-group-item">Câmpus 3</li>
-                        <li class="list-group-item">Câmpus 4</li>
+                        {% for campus in campus %}
+                            <li class="list-group-item">{{campus.nome}}: {{campus.retornaAlunosNoCampus}} </li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
@@ -43,23 +42,22 @@
                         <tr>
                             <th scope="col">Nome</th>
                             <th scope="col">Câmpus</th>
-                            <th scope="col">Alunos Cursando</th>
+                            <th class="d-flex justify-content-center" scope="col">Alunos Cursando</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <ul>
-                            {% for curso in cursos %}
-                                <tr>
-                                    <th scope="row">{{curso.nome}}</th>
-                                    <td>{{curso.campus}}</td>
-                                    <td>Quantidade Alunos</td>
-                                </tr>
-                            {% endfor %}
-                        </ul>
+                        {% for curso in cursos %}
+                        <tr>
+                            <th scope="row">{{curso.nome}}</th>
+                            <td>{{curso.campus}}</td>
+                            <td class="d-flex justify-content-center">{{curso.retornaAlunosCursando}}</td>
+                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
+
 
 
         <footer class="text-center">

@@ -1,9 +1,10 @@
 from django.db import models
 import datetime
 from .choices import *
+from django.utils.html import mark_safe
 
 def diretorio_imagens_aluno(instance, filename):
-    return 'fotos/(0)/(1)'.format(instance.id, filename)
+    return ('alunos/{}/{}'.format(instance.id,filename))
 
 
 class Aluno(models.Model):
@@ -17,6 +18,11 @@ class Aluno(models.Model):
     situacao = models.SmallIntegerField('Situação',choices=OPCOES_SITUACAO)
     formaDeIngresso= models.SmallIntegerField('Forma de Ingresso',choices=OPCOES_INGRESSO)
     matricula = models.CharField('Matrícula', max_length=9, unique=True, editable=False)
+
+    class Meta:
+        verbose_name = "Aluno"
+        verbose_name_plural = "Alunos"
+        ordering = ['nomeDoAluno']
 
     def __str__(self):
         return '{0} - {1}'.format(
@@ -51,7 +57,21 @@ class Aluno(models.Model):
             self.matricula = self.generate_matricula()
         super().save(*args, **kwargs)
 
-    class Meta:
-        verbose_name = "Aluno"
-        verbose_name_plural = "Alunos"
-        ordering = ['nomeDoAluno']
+    def foto_preview(self):
+        return mark_safe(f'<img scr = "{self.foto.url}" width = "300"/>')
+
+    def retornaAlunosVinculados(self):
+        alunos = Aluno.objects.filter(situacao = 'Vinculados')
+        return alunos
+
+    def retornaAlunosJubilados(self):
+        alunos = Aluno.objects.filter(situacao='Jubilados').count()
+        return alunos
+
+    def retornaAlunosFormados(self):
+        alunos = Aluno.objects.filter(situacao='Formados').count()
+        return alunos
+
+    def retornaAlunosEvadidos(self):
+        alunos = Aluno.objects.filter(situacao='Evadidos').count()
+        return alunos

@@ -4,7 +4,7 @@ from django.contrib import messages
 from ..forms.AlunoForm import AlunoInputForm
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
-from django.urls import reverse
+from django.urls import reverse_lazy
 from ..models.base.Cursos import Curso
 from ..models.base.Campus import Campus
 from ..models.base.choices import *
@@ -13,7 +13,7 @@ class CreateAluno(CreateView):
     model = Aluno
     form_class = AlunoInputForm
     template_name = 'academico/cadastra_aluno.html'
-    success_url = '/alunos/'
+    success_url = reverse_lazy('lista_alunos')
 
 
 
@@ -35,3 +35,29 @@ class CreateAluno(CreateView):
         context['situacao'] = situacao
         context['ingresso'] = ingresso
         return context
+
+    def form_valid(self, form):
+        aluno = form.save(commit=False)
+        self.save_fotoObj(aluno) if self.request.FILES.get('foto') else print(f'Sem alteração de imagem.')
+
+        messages.success(self.request, "Aluno adicionado com sucesso!")
+        return super(CreateAluno, self).form_valid(form)
+
+    def save_fotoObj(self, aluno):
+
+        if self.request.FILES.get('foto'):
+
+            extensao = aluno.foto.name.split('.')[-1]
+            aluno.foto.name = f'{aluno.pk}.{extensao}'
+
+
+            aluno.foto.save(
+                f'{aluno.pk}.{extensao}',
+                aluno.foto,
+                False
+            )
+
+            print(f'foto: {aluno.foto}')
+
+
+        return

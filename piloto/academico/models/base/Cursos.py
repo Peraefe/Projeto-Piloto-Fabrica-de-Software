@@ -1,4 +1,5 @@
 from django.db import models
+from ..base.Alunos import Aluno
 
 class Curso(models.Model):
 
@@ -18,3 +19,7 @@ class Curso(models.Model):
             self.nome,
             self.campus
         )
+
+    def retornaAlunosCursando(self):
+        alunos = Aluno.objects.filter(curso=self, situacao = 4).count()
+        return alunos

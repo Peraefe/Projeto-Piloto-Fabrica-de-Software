@@ -10,7 +10,7 @@
             <tr>
                 <th scope="col">Nome</th>
                 <th scope="col">Câmpus</th>
-                <th scope="col">Quantidade de Alunos</th>
+                <th class="d-flex justify-content-center" scope="col">Alunos Cursando</th>
             </tr>
         </thead>
         <tbody>
@@ -18,7 +18,7 @@
             <tr>
                 <th scope="row">{{curso.nome}}</th>
                 <td>{{curso.campus}}</td>
-                <td>Quantidade de Alunos</td>
+                <td class="d-flex justify-content-center">{{curso.retornaAlunosCursando}}</td>
             </tr>
             {% endfor %}
         </tbody>

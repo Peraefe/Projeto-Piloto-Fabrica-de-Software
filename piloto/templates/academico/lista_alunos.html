@@ -1,5 +1,7 @@
 {% extends "bases/base.html" %}
 
+{% load widget_tweaks %}
+
 {% block content%}
 
     <a class="btn btn-warning my-2 col-6 d-md-block mx-auto" href="cadastrar/" role="button" >Adicionar Aluno</a>
@@ -13,6 +15,7 @@
                 <th scope="col">Curso</th>
                 <th scope="col">Câmpus</th>
                 <th scope="col">Editar</th>
+                <th scope="col">Detalhes</th>
             </tr>
         </thead>
         <tbody>
@@ -22,8 +25,12 @@
                 <td>{{aluno.nomeDoAluno}}</td>
                 <td>{{aluno.curso}}</td>
                 <td>{{aluno.campus}}</td>
-                <td><a href="{% url 'edita-aluno' {{aluno.matricula}} %}" role="button" class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+                <td><a href="{% url 'edita_aluno' pk=aluno.pk %}" role="button" class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
                     <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
+                  </svg></a></td>
+                <td><a href="{% url 'detalhes_aluno' pk=aluno.pk %}" role="button" class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
+                    <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
                   </svg></a></td>
             </tr>
             {% endfor %}
