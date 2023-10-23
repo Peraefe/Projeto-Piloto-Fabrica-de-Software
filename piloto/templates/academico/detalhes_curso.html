@@ -1,0 +1,42 @@
+{% extends "bases/base.html" %}
+
+{% load custom_tags %}
+
+{% block content %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <th scope="row">Curso</th>
+                    <td>{{curso.nome}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Câmpus do Curso</th>
+                    <td>{{curso.campus}}</td>
+                </tr><tr>
+                    <th scope="row">Alunos Vinculados</th>
+                    <td>{% retornaAlunosCursoPorSituacao curso 4 %}</td>
+                </tr><tr>
+                    <th scope="row">Alunos Formados</th>
+                    <td>{% retornaAlunosCursoPorSituacao curso 2 %}</td>
+                </tr><tr>
+                    <th scope="row">Alunos Jubilados</th>
+                    <td>{% retornaAlunosCursoPorSituacao curso 3 %}</td>
+                </tr><tr>
+                    <th scope="row">Alunos Evadidos</th>
+                    <td>{% retornaAlunosCursoPorSituacao curso 1 %}</td>
+                </tr><tr>
+                    <th scope="row">Alunos Totais</th>
+                    <td>{% retornaAlunosCursoPorSituacao curso %}</td>
+                </tr>
+        </tbody>
+    </table>
+
+    <input type=button class="btn btn-warning mx-4" value="Voltar" onClick="javascript:history.go(-1);">
+
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "bases/base.html" %}
+
+{% load custom_tags %}
+
+{% block content %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <th scope="row">Câmpus</th>
+                    <td>{{campus.nome}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Cursos do Câmpus</th>
+                    <td>aksdhjsfdh</td>
+                </tr>
+                <tr>
+                    <th scope="row">Alunos Vinculados</th>
+                    <td>{% retornaAlunosCampusPorSituacao campus 4 %}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Alunos Formados</th>
+                    <td>{% retornaAlunosCampusPorSituacao campus 2 %}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Alunos Jubilados</th>
+                    <td>{% retornaAlunosCampusPorSituacao campus 3 %}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Alunos Evadidos</th>
+                    <td>{% retornaAlunosCampusPorSituacao campus 1 %}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Alunos Totais</th>
+                    <td>{% retornaAlunosCampusPorSituacao campus %}</td>
+                </tr>
+        </tbody>
+    </table>
+
+    <div class="container m-auto p-4">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th class="d-flex justify-content-center" scope="col">Alunos Vinculados</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for curso in cursos %}
+                        {% if curso.campus == campus %}
+                            <tr>
+                                <th scope="row">{{curso.nome}}</th>
+                                <td class="d-flex justify-content-center">{% retornaAlunosCursoPorSituacao curso 4 %}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <input type=button class="btn btn-warning mx-4" value="Voltar" onClick="javascript:history.go(-1);">
+
+{% endblock %}
