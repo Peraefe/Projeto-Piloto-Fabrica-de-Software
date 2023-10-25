@@ -3,8 +3,12 @@
 {% load custom_tags %}
 
 {% block content %}
+    <div class="m-2">
+        <input type=button class="btn btn-warning" value="Voltar" onClick="javascript:history.go(-1);">
+    </div>
 
-    <table class="table">
+    <table class="table caption-top">
+        <caption class="mx-2">Detalhes do Câmpus</caption>
         <thead>
             <tr>
                 <th scope="col"></th>
@@ -18,34 +22,35 @@
                 </tr>
                 <tr>
                     <th scope="row">Cursos do Câmpus</th>
-                    <td>aksdhjsfdh</td>
+                    <td>{% retornaCursosNoCampus campus %}</td>
                 </tr>
                 <tr>
                     <th scope="row">Alunos Vinculados</th>
-                    <td>{% retornaAlunosCampusPorSituacao campus 4 %}</td>
+                    <td>{% retornaQtdAlunosCampusPorSituacao campus 4 %}</td>
                 </tr>
                 <tr>
                     <th scope="row">Alunos Formados</th>
-                    <td>{% retornaAlunosCampusPorSituacao campus 2 %}</td>
+                    <td>{% retornaQtdAlunosCampusPorSituacao campus 2 %}</td>
                 </tr>
                 <tr>
                     <th scope="row">Alunos Jubilados</th>
-                    <td>{% retornaAlunosCampusPorSituacao campus 3 %}</td>
+                    <td>{% retornaQtdAlunosCampusPorSituacao campus 3 %}</td>
                 </tr>
                 <tr>
                     <th scope="row">Alunos Evadidos</th>
-                    <td>{% retornaAlunosCampusPorSituacao campus 1 %}</td>
+                    <td>{% retornaQtdAlunosCampusPorSituacao campus 1 %}</td>
                 </tr>
                 <tr>
                     <th scope="row">Alunos Totais</th>
-                    <td>{% retornaAlunosCampusPorSituacao campus %}</td>
+                    <td>{% retornaQtdAlunosCampusPorSituacao campus %}</td>
                 </tr>
         </tbody>
     </table>
 
     <div class="container m-auto p-4">
         <div class="table-responsive">
-            <table class="table table-bordered table-striped">
+            <table class="table table-bordered table-striped caption-top">
+                <caption>Cursos do Câmpus</caption>
                 <thead>
                     <tr>
                         <th scope="col">Nome</th>
@@ -57,7 +62,7 @@
                         {% if curso.campus == campus %}
                             <tr>
                                 <th scope="row">{{curso.nome}}</th>
-                                <td class="d-flex justify-content-center">{% retornaAlunosCursoPorSituacao curso 4 %}</td>
+                                <td class="d-flex justify-content-center">{% retornaQtdAlunosCursoPorSituacao curso 4 %}</td>
                             </tr>
                         {% endif %}
                     {% endfor %}
@@ -65,7 +70,5 @@
             </table>
         </div>
     </div>
-
-    <input type=button class="btn btn-warning mx-4" value="Voltar" onClick="javascript:history.go(-1);">
 
 {% endblock %}

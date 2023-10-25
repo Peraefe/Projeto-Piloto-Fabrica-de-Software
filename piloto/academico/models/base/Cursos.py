@@ -21,5 +21,9 @@ class Curso(models.Model):
         )
 
     def retornaAlunosCursando(self):
-        alunos = Aluno.objects.filter(curso=self, situacao = 4).count()
+        alunos = Aluno.objects.filter(curso=self, situacao = 4)
+        return alunos
+
+    def retornaAlunosTotalCurso(self):
+        alunos = Aluno.objects.filter(curso=self)
         return alunos

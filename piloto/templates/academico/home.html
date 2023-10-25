@@ -1,6 +1,8 @@
 {% extends "bases/base.html" %}
 <!-- {% load static %} -->
 
+{% load custom_tags %}
+
 
 {% block content %}
 
@@ -37,7 +39,8 @@
         <!--Tornar isso dinâmico buscando informações no banco-->
         <div class="container m-auto p-4">
             <div class="table-responsive">
-                <table class="table table-bordered table-striped">
+                <table class="table table-bordered table-striped caption-top">
+                    <caption>Cursos</caption>
                     <thead>
                         <tr>
                             <th scope="col">Nome</th>
@@ -50,7 +53,7 @@
                         <tr>
                             <th scope="row">{{curso.nome}}</th>
                             <td>{{curso.campus}}</td>
-                            <td class="d-flex justify-content-center">{{curso.retornaAlunosCursando}}</td>
+                            <td class="d-flex justify-content-center">{% retornaQtdAlunosCursoPorSituacao curso 4 %}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

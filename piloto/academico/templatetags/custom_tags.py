@@ -5,12 +5,14 @@ register = template.Library()
 from ..models.base.Cursos import Curso
 from ..models.base.Alunos import Aluno
 
+
 @register.simple_tag
-def retornaAlunosCursoPorSituacao(curso, situacao=None):
+def retornaQtdAlunosCursoPorSituacao(curso, situacao=None):
     if situacao==None :
         return Aluno.objects.filter(curso = curso).count()
     else:
         return Aluno.objects.filter(curso = curso, situacao = situacao).count()
+
 
 @register.simple_tag
 def retornaAlunosPorSituacao(situacao=None):
@@ -20,7 +22,7 @@ def retornaAlunosPorSituacao(situacao=None):
         return Aluno.objects.filter(situacao = situacao).count()
 
 @register.simple_tag
-def retornaAlunosCampusPorSituacao(campus,situacao=None):
+def retornaQtdAlunosCampusPorSituacao(campus,situacao=None):
     if situacao==None :
         return Aluno.objects.filter(campus = campus).count()
     else:

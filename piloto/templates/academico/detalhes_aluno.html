@@ -4,7 +4,8 @@
 
 {% block content %}
 
-    <table class="table">
+    <table class="table caption-top">
+        <caption class="mx-2">Detalhes do Aluno</caption>
         <thead>
             <tr>
                 <th scope="col"></th>
@@ -48,6 +49,7 @@
     </table>
     <div class="col-10 mx-2">
         <a href="{% url 'edita_aluno' pk=aluno.pk %}" role="button"  class="btn btn-warning">Editar</a>
+        <input type=button class="btn btn-warning" value="Voltar" onClick="javascript:history.go(-1);">
     </div>
 
 {% endblock %}
