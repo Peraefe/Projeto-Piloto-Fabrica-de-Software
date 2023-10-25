@@ -14,10 +14,10 @@
                         <p class="card-text">Quantidade de Alunos por Situação</p>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Vinculados: {{alunos.retornaAlunosVinculados}}</li>
-                        <li class="list-group-item">Jubilados: {{alunos.retornaAlunosJubilados}}</li>
-                        <li class="list-group-item">Formados: {{alunos.retornaAlunosFormados}}</li>
-                        <li class="list-group-item">Evadidos: {{alunos.retornaAlunosEvadidos}}</li>
+                        <li class="list-group-item">Vinculados: {% retornaAlunosPorSituacao 4 %}</li>
+                        <li class="list-group-item">Jubilados: {% retornaAlunosPorSituacao 3 %}</li>
+                        <li class="list-group-item">Formados: {% retornaAlunosPorSituacao 2 %}</li>
+                        <li class="list-group-item">Evadidos: {% retornaAlunosPorSituacao 1 %}</li>
                     </ul>
                 </div>
             </div>

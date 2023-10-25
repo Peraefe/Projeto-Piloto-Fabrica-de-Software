@@ -48,8 +48,10 @@
         </tbody>
     </table>
     <div class="col-10 mx-2">
-        <a href="{% url 'edita_aluno' pk=aluno.pk %}" role="button"  class="btn btn-warning">Editar</a>
-        <input type=button class="btn btn-warning" value="Voltar" onClick="javascript:history.go(-1);">
+        <a href="{% url 'edita_aluno' pk=aluno.pk %}" role="button"  class="btn btn-warning active">Editar</a>
+        <a class="btn btn-warning my-2 active" role="button" onClick="javascript:history.go(-1);" >Voltar</a>
     </div>
+
+
 
 {% endblock %}
