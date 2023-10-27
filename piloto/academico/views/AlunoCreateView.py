@@ -8,8 +8,9 @@ from django.urls import reverse_lazy
 from ..models.base.Cursos import Curso
 from ..models.base.Campus import Campus
 from ..models.base.choices import *
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class CreateAluno(CreateView):
+class CreateAluno(LoginRequiredMixin,CreateView):
     model = Aluno
     form_class = AlunoInputForm
     template_name = 'academico/cadastra_aluno.html'
