@@ -42,7 +42,56 @@
         </tbody>
     </table>
 
-    <table class="table caption-top">
+    <!-- <div class="d-flex justify-content-center mt-5">
+        <div class="card card shadow w-50">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-dark">Gráficos do Curso</h6>
+            </div>
+            <div class="card-body">
+                <canvas class="p-1" id="CursosPieChart"></canvas>
+            </div>
+        </div>
+    </div> -->
+
+
+    <div class="d-flex justify-content-center mt-5">
+        <div class="card card shadow col-8">
+            <div class="card-header">
+                <h6 class="m-0 font-weight-bold text-dark">Alunos Cursando</h6>
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-bordered table-striped caption-top">
+                    <thead>
+                        <tr>
+                            <th class="text-center" scope="col">Matrícula</th>
+                            <th class="text-center" scope="col">Nome</th>
+                            <th class="text-center" scope="col">Situação</th>
+                            <th class="text-center" scope="col">Editar</th>
+                            <th class="text-center" scope="col">Detalhes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for aluno in curso.retornaAlunosTotalCurso %}
+                        <tr>
+                            <th class="text-center" scope="row">{{aluno.matricula}}</th>
+                            <td class="text-center">{{aluno.nomeDoAluno}}</td>
+                            <td class="text-center">{{aluno.get_situacao_display}}</td>
+                            <td class="text-center"><a href="{% url 'edita_aluno' pk=aluno.pk %}" role="button" class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+                                <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
+                              </svg></a></td>
+                            <td class="text-center"><a href="{% url 'detalhes_aluno' pk=aluno.pk %}" role="button" class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
+                                <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
+                              </svg></a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- <table class="table caption-top">
         <caption class="mx-2">Alunos Cursando</caption>
         <thead>
             <tr>
@@ -69,6 +118,63 @@
             </tr>
             {% endfor %}
         </tbody>
-    </table>
+    </table> -->
+
+    <script>
+        function getRandomColor() {
+            return 'rgb('+Math.floor(Math.random() * (240 - 80) + 80)+','+Math.floor(Math.random() * (240 - 80) + 80)+','+0+')';
+        }
+        var ctx = document.getElementById("CursosPieChart");
+        var alunosPorSituacao = []
+        for(var i = 0;i<4;i++){
+            alunosPorSituacao.push()
+        }
+        var cores = []
+        for(i in alunosPorSituacao){
+            cores.push(getRandomColor())
+        }
+        var pieData = []
+        for(i in alunosPorSituacao){
+            pieData.push(alunosPorSituacao[i])
+        }
+        var CampusPieChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: [
+                {% for curso in cursos %}
+                    {% if curso.retornaAlunosCursando|length > 0 %}
+                        "{{curso.nome}}",
+                    {% endif %}
+                {% endfor %}
+            ],
+            datasets: [{
+            data: pieData,
+            backgroundColor: cores,
+            hoverBackgroundColor: cores,
+            hoverBorderColor: "rgba(234, 236, 244, 1)",
+            }],
+        },
+        options: {
+            maintainAspectRatio: false,
+            tooltips: {
+            backgroundColor: "rgb(255,255,255)",
+            bodyFontColor: "#858796",
+            borderColor: '#dddfeb',
+            borderWidth: 1,
+            xPadding: 15,
+            yPadding: 15,
+            displayColors: false,
+            caretPadding: 10,
+            },
+            legend: {
+            display: false
+            },
+            cutoutPercentage: 80,
+        },
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
 
 {% endblock %}

@@ -6,7 +6,7 @@
 
 {% block content %}
 
-        <div class="container row m-auto g-4 d-flex align-items-end">
+        <div class="container row m-auto g-4 d-flex">
             <div class="col-6 ">
                 <div class="d-flex justify-content-center">
                     <div class="card card shadow" style="width: 20rem;">
@@ -14,6 +14,9 @@
                             <h6 class="m-0 font-weight-bold text-dark">Quantidade de Alunos por Situação</h6>
                         </div>
                         <div class="card-body">
+                            <div>
+                                <canvas class="p-1" style="width: 20vw;" id="AlunosPieChart"></canvas>
+                            </div>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">Vinculados: {% retornaAlunosPorSituacao 4 %}</li>
                                 <li class="list-group-item">Jubilados: {% retornaAlunosPorSituacao 3 %}</li>
@@ -23,9 +26,6 @@
                         </div>
                     </div>
                 </div>
-                <div>
-                    <canvas class="p-1" style="width: 20vw;" id="AlunosPieChart"></canvas>
-                </div>
             </div>
             <div class="col-6 ">
                 <div class="d-flex justify-content-center">
@@ -34,6 +34,9 @@
                             <h6 class="m-0 font-weight-bold text-dark">Quantidade de Alunos por Câmpus</h6>
                         </div>
                         <div class="card-body">
+                            <div>
+                                <canvas class="p-1" style="width: 20vw;" id="CampusPieChart"></canvas>
+                            </div>
                             <ul class="list-group list-group-flush">
                                 {% for campus in campus %}
                                     <li class="list-group-item">{{campus.nome}}: {{campus.retornaAlunosNoCampus}} </li>
@@ -43,12 +46,27 @@
                         </div>
                     </div>
                 </div>
-                <div>
-                    <canvas class="p-1" style="width: 20vw;" id="CampusPieChart"></canvas>
-                </div>
             </div>
         </div>
-        <!--Tornar isso dinâmico buscando informações no banco-->
+        <div class="d-flex justify-content-center mt-5">
+            <div class="card card shadow w-50">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-dark">Quantidade de Alunos por Curso</h6>
+                </div>
+                <div class="card-body">
+                    <canvas class="p-1" id="CursosPieChart"></canvas>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for curso in cursos %}
+                        {% if curso.retornaAlunosCursando|length > 0 %}
+                            <li class="list-group-item">{{curso}}: {% retornaQtdAlunosCursoPorSituacao curso 4 %} </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+<!--
         <div class="d-flex justify-content-center mt-5">
             <div class="card card shadow col-8">
                 <div class="card-header">
@@ -76,24 +94,28 @@
                 </div>
             </div>
 
-        </div>
+        </div> -->
 
 
-        <footer class="text-center">
-            <p class="py-3">2023 <i class="bi bi-c-circle"></i> Desenvolvido para Fábrica de Software | Projeto acadêmico.</p>
-        </footer>
         <script>
+            function getRandomColor() {
+                return 'rgb('+Math.floor(Math.random() * (240 - 80) + 80)+','+Math.floor(Math.random() * (240 - 80) + 80)+','+0+')';
+            }
             var ctx = document.getElementById("AlunosPieChart");
             var qtdAlunos = [parseInt('{% retornaAlunosPorSituacao 4 %}'),parseInt('{% retornaAlunosPorSituacao 3 %}'),
             parseInt('{% retornaAlunosPorSituacao 2 %}'),parseInt('{% retornaAlunosPorSituacao 1 %}')]
+            var cores = []
+            for(i in qtdAlunos){
+                cores.push(getRandomColor())
+            }
             var AlunosPieChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
                 labels: ["Vinculados", "Jubilados", "Formados", "Evadidos"],
                 datasets: [{
                 data: [qtdAlunos[0], qtdAlunos[1], qtdAlunos[2],qtdAlunos[3]],
-                backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-                hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+                backgroundColor: cores,
+                hoverBackgroundColor: cores,
                 hoverBorderColor: "rgba(234, 236, 244, 1)",
                 }],
             },
@@ -117,22 +139,83 @@
             });
         </script>
         <script>
+            function getRandomColor() {
+                return 'rgb('+Math.floor(Math.random() * (240 - 80) + 80)+','+Math.floor(Math.random() * (240 - 80) + 80)+','+0+')';
+            }
             var ctx = document.getElementById("CampusPieChart");
             var qtdAlunos = [parseInt('{% retornaQtdAlunosCampusPorSituacao campus.0 %}'),parseInt('{% retornaQtdAlunosCampusPorSituacao campus.1 %}'),
             parseInt('{% retornaQtdAlunosCampusPorSituacao campus.2 %}'),parseInt('{% retornaQtdAlunosCampusPorSituacao campus.3 %}'),
             parseInt('{% retornaQtdAlunosCampusPorSituacao campus.4 %}'),parseInt('{% retornaQtdAlunosCampusPorSituacao campus.5 %}'),
             parseInt('{% retornaQtdAlunosCampusPorSituacao campus.6 %}'),]
-            console.log("qtdAlunos",qtdAlunos)
 
-
+            var cores = []
+            for(i in qtdAlunos){
+                cores.push(getRandomColor())
+            }
             var CampusPieChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
                 labels: ["Araguaína", "Arraias", "Gurupi", "Miracema", "Palmas", "Porto Nacional", "Tocantinópolis"],
                 datasets: [{
                 data: [qtdAlunos[0], qtdAlunos[1], qtdAlunos[2],qtdAlunos[3],qtdAlunos[4],qtdAlunos[5],qtdAlunos[6]],
-                backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-                hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+                backgroundColor: cores,
+                hoverBackgroundColor: cores,
+                hoverBorderColor: "rgba(234, 236, 244, 1)",
+                }],
+            },
+            options: {
+                maintainAspectRatio: false,
+                tooltips: {
+                backgroundColor: "rgb(255,255,255)",
+                bodyFontColor: "#858796",
+                borderColor: '#dddfeb',
+                borderWidth: 1,
+                xPadding: 15,
+                yPadding: 15,
+                displayColors: false,
+                caretPadding: 10,
+                },
+                legend: {
+                display: false
+                },
+                cutoutPercentage: 80,
+            },
+            });
+        </script>
+        <script>
+            function getRandomColor() {
+                return 'rgb('+Math.floor(Math.random() * (240 - 80) + 80)+','+Math.floor(Math.random() * (240 - 80) + 80)+','+0+')';
+            }
+            var ctx = document.getElementById("CursosPieChart");
+            var qtdAlunos = [
+                {% for curso in cursos %}
+                    {% if curso.retornaAlunosCursando|length > 0 %}
+                        {% retornaQtdAlunosCursoPorSituacao curso 4 %},
+                    {% endif %}
+                {% endfor %}
+            ]
+            var cores = []
+            for(i in qtdAlunos){
+                cores.push(getRandomColor())
+            }
+            var pieData = []
+            for(i in qtdAlunos){
+                pieData.push(qtdAlunos[i])
+            }
+            var CampusPieChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: [
+                    {% for curso in cursos %}
+                        {% if curso.retornaAlunosCursando|length > 0 %}
+                            "{{curso.nome}}",
+                        {% endif %}
+                    {% endfor %}
+                ],
+                datasets: [{
+                data: pieData,
+                backgroundColor: cores,
+                hoverBackgroundColor: cores,
                 hoverBorderColor: "rgba(234, 236, 244, 1)",
                 }],
             },
