@@ -1,0 +1,21 @@
+{%extends 'bases/base.html'%}
+
+{%block content%}
+  <div class="d-flex justify-content-center ">
+	  <form method="post" class="card mt-5 w-25 px-5 pb-3" novalidate>
+	  	{% csrf_token %}
+	    <h2 class="text-center mb-5">Entre com sua conta</h2>
+		{% for field in form %}
+	    		{{ field.label_tag }}
+	        	{{ field }}
+	        	{% if field.errors %}
+	        		<small>{{ field.errors|striptags }}</small>
+	        	{% endif %}
+		{% endfor %}
+		<button type="submit" value="Login" class="btn btn-warning mt-5">Entrar</button>
+		<hr>
+		<!-- <p class="text-center">Forgot your password <a href="#">Reset Password</a></p> -->
+	</form>
+</div>
+
+{%endblock content%}

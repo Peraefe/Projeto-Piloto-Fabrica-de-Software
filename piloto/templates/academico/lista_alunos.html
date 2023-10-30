@@ -3,11 +3,35 @@
 {% load widget_tweaks %}
 
 {% block content%}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
+
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css" rel="stylesheet" type="text/css" />
+
 
     <div class="mx-2">
         <a class="btn btn-warning my-2 active" href="cadastrar/" role="button" >Adicionar Aluno</a>
         <a class="btn btn-warning my-2 active" role="button" onClick="javascript:history.go(-1);" >Voltar</a>
     </div>
+
+
+    <form action="" method="get" class="d-flex justify-content-center">
+        <input class="w-50 my-2 me-2" id="consulta" name="search" type="search" placeholder="Pesquise por Aluno">
+        <button class="btn btn-warning my-2 active" type="submit" style="width: 10vw;">Pesquisar <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search ms-2" viewBox="0 0 16 16">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+        </svg></button>
+    </form>
+
+    {% if messages %}
+        <ul class="messages d-flex justify-content-center">
+            {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show w-25 text-center" role="alert">
+                    {{message}}
+                </div>
+            {% endfor %}
+        </ul>
+    {% endif %}
 
     <table class="table">
         <thead>
@@ -20,7 +44,7 @@
                 <th scope="col">Detalhes</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="tabela">
             {% for aluno in object_list %}
             <tr>
                 <th scope="row" >{{aluno.matricula}}</th>
@@ -38,5 +62,21 @@
             {% endfor %}
         </tbody>
     </table>
+
+    <!-- <script>
+        $( function() {
+          var availableTags = [
+              {% for aluno in object_list %}
+                  "{{aluno.nomeDoAluno}}",
+              {% endfor %}
+          ];
+          $( "#consulta" ).autocomplete({
+            source: availableTags
+          });
+          var itens = document.getElementsByClassName('ui-menu-item')
+          console.log('elements:', itens)
+        } );
+
+    </script> -->
 
 {% endblock %}

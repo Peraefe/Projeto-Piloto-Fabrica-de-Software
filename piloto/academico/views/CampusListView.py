@@ -1,8 +1,9 @@
 from django.views.generic import ListView
 from ..models.base.Campus import Campus
 from ..models.base.Cursos import Curso
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class ListaCampus(ListView):
+class ListaCampus(LoginRequiredMixin,ListView):
     model = Campus
     template_name = "academico/lista_campus.html"
 

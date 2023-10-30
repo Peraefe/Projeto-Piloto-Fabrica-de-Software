@@ -8,8 +8,9 @@ from ..models.base.Campus import Campus
 from ..models.base.choices import *
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class UpdateAluno(UpdateView):
+class UpdateAluno(LoginRequiredMixin,UpdateView):
     model = Aluno
     # form_class = AlunoInputForm
     template_name = 'academico/edita_aluno.html'

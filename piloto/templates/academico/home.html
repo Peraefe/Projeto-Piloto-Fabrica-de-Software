@@ -6,67 +6,77 @@
 
 {% block content %}
 
-        <div class="container row m-auto g-4">
+        <div class="container row m-auto g-4 d-flex align-items-end">
             <div class="col-6 ">
-                <div class="card" style="width: 20rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Alunos</h5>
-                        <p class="card-text">Quantidade de Alunos por Situação</p>
+                <div class="d-flex justify-content-center">
+                    <div class="card card shadow" style="width: 20rem;">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-dark">Quantidade de Alunos por Situação</h6>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Vinculados: {% retornaAlunosPorSituacao 4 %}</li>
+                                <li class="list-group-item">Jubilados: {% retornaAlunosPorSituacao 3 %}</li>
+                                <li class="list-group-item">Formados: {% retornaAlunosPorSituacao 2 %}</li>
+                                <li class="list-group-item">Evadidos: {% retornaAlunosPorSituacao 1 %}</li>
+                            </ul>
+                        </div>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Vinculados: {% retornaAlunosPorSituacao 4 %}</li>
-                        <li class="list-group-item">Jubilados: {% retornaAlunosPorSituacao 3 %}</li>
-                        <li class="list-group-item">Formados: {% retornaAlunosPorSituacao 2 %}</li>
-                        <li class="list-group-item">Evadidos: {% retornaAlunosPorSituacao 1 %}</li>
-                    </ul>
                 </div>
                 <div>
-                    <canvas class="p-1" style="width: 24vw;" id="AlunosPieChart"></canvas>
+                    <canvas class="p-1" style="width: 20vw;" id="AlunosPieChart"></canvas>
                 </div>
             </div>
-            <div class="col-6">
-                <div class="card" style="width: 20rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Câmpus</h5>
-                        <p class="card-text">Quantidade de Alunos por Câmpus</p>
+            <div class="col-6 ">
+                <div class="d-flex justify-content-center">
+                    <div class="card card shadow" style="width: 20rem;">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-dark">Quantidade de Alunos por Câmpus</h6>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                {% for campus in campus %}
+                                    <li class="list-group-item">{{campus.nome}}: {{campus.retornaAlunosNoCampus}} </li>
+                                {% endfor %}
+                            </ul>
+
+                        </div>
                     </div>
-                    <!--Tornar isso dinâmico buscando informações no banco-->
-                    <ul class="list-group list-group-flush">
-                        {% for campus in campus %}
-                            <li class="list-group-item">{{campus.nome}}: {{campus.retornaAlunosNoCampus}} </li>
-                        {% endfor %}
-                    </ul>
                 </div>
                 <div>
-                    <canvas class="p-1" style="width: 24vw;" id="CampusPieChart"></canvas>
+                    <canvas class="p-1" style="width: 20vw;" id="CampusPieChart"></canvas>
                 </div>
             </div>
         </div>
         <!--Tornar isso dinâmico buscando informações no banco-->
-        <div class="container m-auto p-4">
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped caption-top">
-                    <caption>Cursos</caption>
-                    <thead>
-                        <tr>
-                            <th scope="col">Nome</th>
-                            <th scope="col">Câmpus</th>
-                            <th class="d-flex justify-content-center" scope="col">Alunos Cursando</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for curso in cursos %}
-                        <tr>
-                            <th scope="row">{{curso.nome}}</th>
-                            <td>{{curso.campus}}</td>
-                            <td class="d-flex justify-content-center">{% retornaQtdAlunosCursoPorSituacao curso 4 %}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+        <div class="d-flex justify-content-center mt-5">
+            <div class="card card shadow col-8">
+                <div class="card-header">
+                    <h6 class="m-0 font-weight-bold text-dark">Cursos</h6>
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table table-bordered table-striped caption-top">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Câmpus</th>
+                                <th class="d-flex justify-content-center" scope="col">Alunos Cursando</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for curso in cursos %}
+                            <tr>
+                                <th scope="row">{{curso.nome}}</th>
+                                <td>{{curso.campus}}</td>
+                                <td class="d-flex justify-content-center">{% retornaQtdAlunosCursoPorSituacao curso 4 %}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
 
+        </div>
 
 
         <footer class="text-center">

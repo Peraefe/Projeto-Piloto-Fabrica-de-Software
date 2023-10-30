@@ -6,9 +6,10 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from ..models.base.Cursos import Curso
 from ..models.base.Campus import Campus
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class CreateCurso(CreateView):
+class CreateCurso(LoginRequiredMixin,CreateView):
     model = Curso
     form_class = CursoInputForm
     template_name = 'academico/cadastra_curso.html'
